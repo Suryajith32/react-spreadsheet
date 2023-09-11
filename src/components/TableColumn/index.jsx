@@ -1,24 +1,30 @@
 import React, { memo, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateMatrix } from '../../store/reducer/dataReducer'
+import { useInView } from 'react-intersection-observer'
+import Input from '../Input'
 
 const TableColumn = (props) => {
-    const { numbers, columnIndex, inView, rowIndex } = props
+    const { columnIndex, rowIndex } = props
+    const value = useSelector((state) => state.data.value.initialMatrix[rowIndex][columnIndex])
     const dispatch = useDispatch()
 
     const handleOnChange = useCallback((event, currentRowIndex, currentColumnIndex) => {
-        console.log('column Rendered')
         const newValue = Number(event.target.value)
         const data = {
             newValue, currentRowIndex, currentColumnIndex
         }
         dispatch(updateMatrix(data))
     },[])
+    console.log('column Rendered')
 
+    const { ref, inView } = useInView({
+        threshold: 1.0
+    })
 
     return (
-        <td key={columnIndex}>
-            {inView ? <input type="numbers" defaultValue={numbers} onChange={(event) => handleOnChange(event, rowIndex, columnIndex)}/> : <input type='numbers' />}
+        <td key={columnIndex} ref={ref}>
+            <Input onChange={handleOnChange} value={value} inView={inView}/>
         </td>
     )
 }

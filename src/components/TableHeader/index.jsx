@@ -1,12 +1,12 @@
 import React from 'react'
 
-const TableHeader = ({ matrix }) => {
+const TableHeader = ({index}) => {
+    console.log("header renderd")
+
     return (
         <thead>
             <tr>
-                {matrix[0]?.map((_, colIndex) => (
-                    <th key={colIndex}>{colIndex }</th>
-                ))}
+                <th key={index}>{index}</th>
             </tr>
         </thead>
     )

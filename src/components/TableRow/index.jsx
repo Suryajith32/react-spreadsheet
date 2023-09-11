@@ -1,17 +1,20 @@
 import React, { memo } from 'react'
 import TableColumn from '../TableColumn'
 
-const TableRow = ({ row, rowIndex, inView }) => {
-
+const TableRow = ({ rowIndex, colLength }) => {
     console.log('tablerow rendered')
+    const colItems = []
+    for (let index = 0; index < colLength; index++) {
+        colItems.push(<TableColumn rowIndex={rowIndex} columnIndex={index} />)
+    }
 
     return (
-        <tr key={rowIndex}>
-            <th scope="row">{rowIndex + 1}</th>
-            {row.map((numbers, columnIndex) => (
-               <TableColumn numbers={numbers} columnIndex={columnIndex} inView={inView} rowIndex={rowIndex}/>
-            ))}
-        </tr>
+        <>
+            <tr>
+                <th scope="row">{rowIndex + 1}</th>
+                 {colItems}          
+            </tr>
+        </>
     )
 }
 
