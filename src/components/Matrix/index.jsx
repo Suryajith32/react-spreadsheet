@@ -1,37 +1,34 @@
 // src/MatrixTable.js
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
+import './index.css'
+import TableHeader from '../TableHeader';
+import TableSheet from '../TableSheet';
+import { useSelector } from 'react-redux';
 
 const MatrixTable = ({ matrix }) => {
+  const updatedMarix = useSelector((state) => state.data.value.initialMatrix)
+
   const [ref, inView] = useInView({
     triggerOnce: true,
   });
 
+  const handleButtonClick = () => {
+      console.log(updatedMarix,'updated matrix')
+  }
+
   return (
-    <div className="matrix-table" ref={ref}>
-      <table>
-        <thead>
-          <tr>
-            {matrix[0]?.map((_, colIndex) => (
-              <th key={colIndex}>Column {colIndex + 1}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {matrix.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, colIndex) => (
-                <td
-                  key={colIndex}
-                >
-                  {inView ? cell : ' '}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <>
+    <div>
+      <button onClick={handleButtonClick}>show updated Data</button>
     </div>
+      <div className="matrix-table" ref={ref}>
+        <table>
+          <TableHeader matrix={matrix}/>
+          <TableSheet matrix={matrix} inView={inView}/>
+        </table>
+      </div>
+    </>
   );
 };
 
