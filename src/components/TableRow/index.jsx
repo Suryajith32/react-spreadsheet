@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import TableColumn from '../TableColumn'
 
 const TableRow = ({ rowIndex, colLength }) => {
@@ -12,10 +12,10 @@ const TableRow = ({ rowIndex, colLength }) => {
         <>
             <tr>
                 <th scope="row">{rowIndex + 1}</th>
-                 {colItems}          
+                {colItems}
             </tr>
         </>
     )
 }
 
-export default memo(TableRow)
+export default TableRow

@@ -3,13 +3,10 @@ import './index.css'
 import TableHeader from '../TableHeader';
 import TableSheet from '../TableSheet';
 
-const MatrixTable = ({ }) => {
+const MatrixTable = () => {
   console.log("matrix renderd")
   return (
     <>
-      <div>
-        <button >show updated Data</button>
-      </div>
       <div className="matrix-table" >
         <table>
           <TableHeader />

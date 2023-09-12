@@ -1,12 +1,11 @@
-import React, { memo, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { updateMatrix } from '../../store/reducer/dataReducer'
 import { useInView } from 'react-intersection-observer'
 import Input from '../Input'
 
 const TableColumn = (props) => {
     const { columnIndex, rowIndex } = props
-    const value = useSelector((state) => state.data.value.initialMatrix[rowIndex][columnIndex])
     const dispatch = useDispatch()
 
     const handleOnChange = useCallback((event, currentRowIndex, currentColumnIndex) => {
@@ -15,18 +14,19 @@ const TableColumn = (props) => {
             newValue, currentRowIndex, currentColumnIndex
         }
         dispatch(updateMatrix(data))
-    },[])
+    }, [])
     console.log('column Rendered')
 
     const { ref, inView } = useInView({
-        threshold: 1.0
+        root:document.getElementsByClassName('matrix-table')[0],
+        rootMargin:'100px'
     })
 
     return (
         <td key={columnIndex} ref={ref}>
-            <Input onChange={handleOnChange} value={value} inView={inView}/>
+            {!inView ? <p></p>: <Input onChange={handleOnChange} inView={inView} columnIndex={columnIndex} rowIndex={rowIndex} />}
         </td>
     )
-}
+} 
 
-export default memo(TableColumn)
+export default TableColumn

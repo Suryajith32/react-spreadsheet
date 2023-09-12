@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import MatrixTable from './components/Matrix';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { addMatrix } from './store/reducer/dataReducer';
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
 
   useEffect(() => {
     const matrix = [];
-    const numRows = 100;
-    const numCols = 60;
+    const numRows = 1000;
+    const numCols = 40;
     for (let i = 0; i < numRows; i++) {
       const row = [];
       for (let j = 0; j < numCols; j++) {
@@ -19,6 +19,7 @@ function App() {
       matrix.push(row);
     }
     dispatch(addMatrix(matrix))
+    console.log('useEffect rendered')
   }, [])
 
   console.log("App renderd")

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import TableRow from '../TableRow'
 import { useSelector } from 'react-redux'
 
@@ -6,9 +6,10 @@ const TableSheet = () => {
     const rowLength = useSelector((state) => state.data.value.initialMatrix?.length)
     const colLength = useSelector((state) => state.data.value.initialMatrix[0]?.length)
     const Rows = []
-    for (let index = 0; index < rowLength; index++) {
-     Rows.push(<TableRow rowIndex={index} colLength={colLength}/>)     
+    for (let rowIndex = 0; rowIndex < rowLength; rowIndex++) {
+     Rows.push(<TableRow rowIndex={rowIndex} colLength={colLength}/>)     
     }
+
     console.log('sheet renderd')
     return (
         <tbody>
@@ -17,4 +18,4 @@ const TableSheet = () => {
     )
 }
 
-export default memo(TableSheet)
+export default TableSheet
