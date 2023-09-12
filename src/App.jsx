@@ -1,26 +1,31 @@
-// src/App.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import MatrixTable from './components/Matrix';
-
+import { useDispatch} from 'react-redux';
+import { addMatrix } from './store/reducer/dataReducer';
 
 function App() {
-  const matrix = [];
-  const numRows = 1000;
-  const numCols = 10;
+  const dispatch = useDispatch()
 
-  for (let i = 0; i < numRows; i++) {
-    const row = [];
-    for (let j = 0; j < numCols; j++) {
-      row.push(Math.floor(Math.random() * 80)); // Replace this with your data
+  useEffect(() => {
+    const matrix = [];
+    const numRows = 1000;
+    const numCols = 40;
+    for (let i = 0; i < numRows; i++) {
+      const row = [];
+      for (let j = 0; j < numCols; j++) {
+        row.push(Math.floor(Math.random() * 80));
+      }
+      matrix.push(row);
     }
-    matrix.push(row);
-  }
+    dispatch(addMatrix(matrix))
+    console.log('useEffect rendered')
+  }, [])
 
+  console.log("App renderd")
   return (
     <div className="App">
-      <h1>Lazy Loading Matrix Table</h1>
-      <MatrixTable matrix={matrix} />
+      <MatrixTable />
     </div>
   );
 }
